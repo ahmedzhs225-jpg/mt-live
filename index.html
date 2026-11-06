@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مستري تاون - البثوث اللايف</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مستري تاون | البثوث اللايف</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #07050e;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.06);
+      --orange: #ff6b00;
+      --orange2: #ff2d00;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.45);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -14,9 +24,10 @@
     }
 
     body {
-      background: #07050e;
-      color: #fff;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -24,233 +35,295 @@
       position: fixed;
       inset: 0;
       background: 
-        radial-gradient(ellipse at 20% 10%, rgba(255, 100, 0, 0.18) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 90%, rgba(255, 40, 0, 0.12) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(255, 100, 0, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 40% at 90% 110%, rgba(255, 40, 0, 0.14) 0%, transparent 50%);
       z-index: -1;
+      pointer-events: none;
     }
 
     .app {
-      max-width: 460px;
+      max-width: 440px;
       margin: 0 auto;
-      padding-bottom: 60px;
+      padding-bottom: 50px;
     }
 
+    /* Header */
     .header {
-      padding: 20px 20px 16px;
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 5, 14, 0.85);
-      backdrop-filter: blur(24px);
+      padding: 18px 18px 14px;
+      background: rgba(7, 5, 14, 0.82);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       border-bottom: 1px solid rgba(255, 107, 0, 0.1);
     }
 
-    .search-bar {
+    .search {
+      display: flex;
+      align-items: center;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 18px;
-      padding: 13px 18px;
-      margin-bottom: 20px;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      transition: 0.25s;
     }
 
-    .search-bar input {
+    .search:focus-within {
+      border-color: rgba(255, 107, 0, 0.5);
+      background: rgba(255, 107, 0, 0.06);
+      box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
+    }
+
+    .search input {
       width: 100%;
       background: transparent;
       border: none;
-      color: #fff;
+      color: white;
       font-size: 15px;
       outline: none;
     }
 
-    .search-bar input::placeholder {
+    .search input::placeholder {
       color: rgba(255, 255, 255, 0.35);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 14px;
     }
 
     .logo {
-      width: 58px;
-      height: 58px;
+      width: 56px;
+      height: 56px;
       background: linear-gradient(135deg, #ff6b00, #ff2d00);
-      border-radius: 18px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 22px;
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(255, 80, 0, 0.45);
+      color: white;
+      box-shadow: 0 10px 28px rgba(255, 80, 0, 0.4);
+      position: relative;
     }
 
-    .brand-text h1 {
-      font-size: 26px;
+    .logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1.5px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .brand h1 {
+      font-size: 24px;
       font-weight: 800;
       background: linear-gradient(90deg, #ff9a2e, #ff3c00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.4px;
     }
 
-    .brand-text p {
+    .brand p {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.45);
-      margin-top: 3px;
+      color: var(--muted);
+      margin-top: 2px;
     }
 
+    /* Welcome */
     .welcome {
-      margin: 18px 20px;
-      padding: 14px 18px;
-      background: linear-gradient(90deg, rgba(255, 100, 0, 0.16), rgba(255, 40, 0, 0.07));
-      border: 1px solid rgba(255, 100, 0, 0.22);
+      margin: 16px 18px;
+      padding: 13px 16px;
+      background: linear-gradient(90deg, rgba(255, 100, 0, 0.15), rgba(255, 40, 0, 0.06));
+      border: 1px solid rgba(255, 100, 0, 0.2);
       border-radius: 16px;
-      font-size: 14px;
+      font-size: 13.5px;
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
     }
 
     .live-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       background: #ff3b30;
       border-radius: 50%;
-      animation: livePulse 1.8s infinite;
+      flex-shrink: 0;
+      animation: pulse 1.7s infinite;
     }
 
-    @keyframes livePulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.5); }
-      70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.55); }
+      70% { box-shadow: 0 0 0 9px rgba(255, 59, 48, 0); }
       100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
     }
 
+    /* Cards */
     .streams {
-      padding: 0 20px;
+      padding: 0 18px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 24px;
-      overflow: hidden;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      padding: 18px 18px 10px;
       gap: 14px;
     }
 
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 120, 0, 0.45), transparent);
+    }
+
+    .card:active {
+      transform: scale(0.975);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      padding: 16px 16px 8px;
+      gap: 13px;
+    }
+
     .avatar {
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       background: linear-gradient(135deg, #ff6b00, #ff2d00);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 21px;
-      color: #fff;
+      font-size: 20px;
+      color: white;
+      box-shadow: 0 6px 16px rgba(255, 80, 0, 0.3);
       flex-shrink: 0;
+    }
+
+    .info {
+      flex: 1;
+      min-width: 0;
     }
 
     .name-row {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
     }
 
-    .username {
+    .name {
       font-weight: 700;
-      font-size: 17px;
+      font-size: 16px;
     }
 
-    .live-badge {
+    .badge {
       background: linear-gradient(90deg, #ff3b30, #ff0a0a);
       color: white;
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 30px;
-      box-shadow: 0 0 14px rgba(255, 50, 30, 0.45);
+      letter-spacing: 0.3px;
+      box-shadow: 0 0 12px rgba(255, 50, 30, 0.4);
     }
 
     .time {
-      font-size: 12.5px;
+      font-size: 12px;
       color: rgba(255, 255, 255, 0.38);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
-    .card-title {
-      padding: 0 18px 14px;
-      font-size: 15px;
-      line-height: 1.55;
+    .title {
+      padding: 0 16px 12px;
+      font-size: 14.5px;
+      line-height: 1.5;
       color: rgba(255, 255, 255, 0.88);
     }
 
-    .card-stats {
+    .stats {
       display: flex;
-      gap: 22px;
-      padding: 13px 18px;
+      gap: 18px;
+      padding: 11px 16px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 13.5px;
+      font-size: 13px;
       color: rgba(255, 255, 255, 0.45);
     }
 
-    .watch-btn {
+    .btn {
       display: block;
       background: linear-gradient(90deg, #ff6b00, #ff2d00);
-      color: #fff;
+      color: white;
       text-align: center;
-      padding: 14px;
-      margin: 0 18px 18px;
-      border-radius: 16px;
+      padding: 13px;
+      margin: 0 16px 16px;
+      border-radius: 14px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 15px;
-      box-shadow: 0 8px 24px rgba(255, 80, 0, 0.35);
+      font-size: 14.5px;
+      box-shadow: 0 8px 22px rgba(255, 80, 0, 0.32);
     }
 
+    /* Empty State */
     .empty {
       text-align: center;
-      padding: 80px 30px;
+      padding: 70px 28px;
     }
 
     .empty-icon {
-      font-size: 56px;
-      margin-bottom: 20px;
+      font-size: 52px;
+      margin-bottom: 18px;
+      opacity: 0.9;
     }
 
     .empty-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .empty-text {
-      font-size: 14.5px;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.4);
-      line-height: 1.7;
+      line-height: 1.65;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 20px 10px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
     }
   </style>
 </head>
 <body>
   <div class="app">
     <header class="header">
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="ابحث عن ستريمر لايف...">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="ابحث عن ستريمر لايف..." />
       </div>
-      
+
       <div class="brand">
         <div class="logo">MT</div>
-        <div class="brand-text">
+        <div>
           <h1>مستري تاون</h1>
           <p>البثوث اللايف فقط</p>
         </div>
@@ -259,10 +332,12 @@
 
     <div class="welcome">
       <div class="live-dot"></div>
-      البثوث المفتوحة حالياً في مستري تاون
+      <span>البثوث المفتوحة حالياً في مستري تاون</span>
     </div>
 
     <div class="streams" id="streamsList"></div>
+
+    <div class="footer">مستري تاون • Season 8</div>
   </div>
 
   <script>
@@ -281,54 +356,4 @@
     const searchInput = document.getElementById("searchInput");
 
     function render(data) {
-      const liveOnly = data.filter(s => s.live === true);
-      list.innerHTML = "";
-
-      if (liveOnly.length === 0) {
-        list.innerHTML = `
-          <div class="empty">
-            <div class="empty-icon">😴</div>
-            <div class="empty-title">ما في أحد فاتح بث حالياً</div>
-            <div class="empty-text">ارجع بعد شوي<br>غالباً بيبدأون البثوث قريب</div>
-          </div>
-        `;
-        return;
-      }
-
-      liveOnly.forEach(s => {
-        list.innerHTML += `
-          <div class="card">
-            <div class="card-header">
-              <div class="avatar">${s.name.charAt(0)}</div>
-              <div>
-                <div class="name-row">
-                  <div class="username">${s.name}</div>
-                  <div class="live-badge">لايف</div>
-                </div>
-                <div class="time">${s.time}</div>
-              </div>
-            </div>
-            <div class="card-title">${s.title}</div>
-            <div class="card-stats">
-              <span>👁 ${s.viewers}</span>
-              <span>❤ ${s.likes}</span>
-              <span>💬 ${s.comments}</span>
-            </div>
-            <a href="${s.link}" target="_blank" class="watch-btn">شاهد البث الآن</a>
-          </div>
-        `;
-      });
-    }
-
-    searchInput.addEventListener("input", () => {
-      const value = searchInput.value.toLowerCase();
-      const filtered = streamers.filter(s => 
-        s.live && (s.name.toLowerCase().includes(value) || s.title.toLowerCase().includes(value))
-      );
-      render(filtered);
-    });
-
-    render(streamers);
-  </script>
-</body>
-</html>
+      const liveOnly =
