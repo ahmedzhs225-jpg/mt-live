@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مستري تاون - البثوث اللايف</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      background: #07050e;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 10%, rgba(255, 100, 0, 0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(255, 40, 0, 0.12) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    .app {
+      max-width: 460px;
+      margin: 0 auto;
+      padding-bottom: 60px;
+    }
+
+    .header {
+      padding: 20px 20px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 5, 14, 0.85);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+    }
+
+    .search-bar {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 18px;
+      padding: 13px 18px;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(135deg, #ff6b00, #ff2d00);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(255, 80, 0, 0.45);
+    }
+
+    .brand-text h1 {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff9a2e, #ff3c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 3px;
+    }
+
+    .welcome {
+      margin: 18px 20px;
+      padding: 14px 18px;
+      background: linear-gradient(90deg, rgba(255, 100, 0, 0.16), rgba(255, 40, 0, 0.07));
+      border: 1px solid rgba(255, 100, 0, 0.22);
+      border-radius: 16px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      background: #ff3b30;
+      border-radius: 50%;
+      animation: livePulse 1.8s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+    }
+
+    .streams {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      padding: 18px 18px 10px;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b00, #ff2d00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 21px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .username {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .live-badge {
+      background: linear-gradient(90deg, #ff3b30, #ff0a0a);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 30px;
+      box-shadow: 0 0 14px rgba(255, 50, 30, 0.45);
+    }
+
+    .time {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.38);
+      margin-top: 4px;
+    }
+
+    .card-title {
+      padding: 0 18px 14px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 22px;
+      padding: 13px 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .watch-btn {
+      display: block;
+      background: linear-gradient(90deg, #ff6b00, #ff2d00);
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      margin: 0 18px 18px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 8px 24px rgba(255, 80, 0, 0.35);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 80px 30px;
+    }
+
+    .empty-icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+
+    .empty-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .empty-text {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="ابحث عن ستريمر لايف...">
+      </div>
+      
+      <div class="brand">
+        <div class="logo">MT</div>
+        <div class="brand-text">
+          <h1>مستري تاون</h1>
+          <p>البثوث اللايف فقط</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="welcome">
+      <div class="live-dot"></div>
+      البثوث المفتوحة حالياً في مستري تاون
+    </div>
+
+    <div class="streams" id="streamsList"></div>
+  </div>
+
+  <script>
+    const streamers = [
+      { name: "7omah", title: "بث مباشر • أحداث الموسم الثامن 🔥", time: "مباشر الآن", viewers: "1.2K", likes: "840", comments: "312", live: true, link: "https://kick.com/7omah" },
+      { name: "brof2", title: "سوالف + رول بلاي أسطوري", time: "منذ 8 دقائق", viewers: "890", likes: "620", comments: "187", live: true, link: "https://kick.com/brof2" },
+      { name: "iABS", title: "تصعيد وأحداث قوية جدًا 🔥", time: "منذ 20 دقيقة", viewers: "2.1K", likes: "1.1K", comments: "430", live: true, link: "https://kick.com/iabs" },
+      { name: "77ex", title: "شرطة + مداهمات", time: "منذ ساعتين", viewers: "670", likes: "490", comments: "156", live: false, link: "https://kick.com/77ex" },
+      { name: "Azzz", title: "عصابات وشغل جوي", time: "منذ 3 ساعات", viewers: "1.5K", likes: "980", comments: "290", live: false, link: "https://kick.com/azzz" },
+      { name: "AbuSwe7l", title: "طقطقة وسوالف", time: "أمس", viewers: "3.4K", likes: "2.1K", comments: "780", live: false, link: "https://kick.com/abuswe7l" },
+      { name: "EAGLE", title: "بث خاص", time: "أمس", viewers: "980", likes: "710", comments: "245", live: false, link: "https://kick.com/eagle" },
+      { name: "JASER", title: "رول بلاي جاد", time: "منذ يومين", viewers: "1.8K", likes: "1.3K", comments: "410", live: false, link: "https://kick.com/jaser" }
+    ];
+
+    const list = document.getElementById("streamsList");
+    const searchInput = document.getElementById("searchInput");
+
+    function render(data) {
+      const liveOnly = data.filter(s => s.live === true);
+      list.innerHTML = "";
+
+      if (liveOnly.length === 0) {
+        list.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">😴</div>
+            <div class="empty-title">ما في أحد فاتح بث حالياً</div>
+            <div class="empty-text">ارجع بعد شوي<br>غالباً بيبدأون البثوث قريب</div>
+          </div>
+        `;
+        return;
+      }
+
+      liveOnly.forEach(s => {
+        list.innerHTML += `
+          <div class="card">
+            <div class="card-header">
+              <div class="avatar">${s.name.charAt(0)}</div>
+              <div>
+                <div class="name-row">
+                  <div class="username">${s.name}</div>
+                  <div class="live-badge">لايف</div>
+                </div>
+                <div class="time">${s.time}</div>
+              </div>
+            </div>
+            <div class="card-title">${s.title}</div>
+            <div class="card-stats">
+              <span>👁 ${s.viewers}</span>
+              <span>❤ ${s.likes}</span>
+              <span>💬 ${s.comments}</span>
+            </div>
+            <a href="${s.link}" target="_blank" class="watch-btn">شاهد البث الآن</a>
+          </div>
+        `;
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value.toLowerCase();
+      const filtered = streamers.filter(s => 
+        s.live && (s.name.toLowerCase().includes(value) || s.title.toLowerCase().includes(value))
+      );
+      render(filtered);
+    });
+
+    render(streamers);
+  </script>
+</body>
+</html>
